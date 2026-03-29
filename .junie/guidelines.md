@@ -26,7 +26,7 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 - `pl.ldz.chat.controller` — HTTP endpoints and request/response handling
 - `pl.ldz.chat.service` — business logic and use cases
 - `pl.ldz.chat.repository` — persistence access
-- `pl.ldz.chat.domain` — JPA entities and domain objects
+- `pl.ldz.chat.entity` — JPA entities
 - `pl.ldz.chat.dto` — API request/response models
 - `pl.ldz.chat.config` — application configuration
 - `pl.ldz.chat.security` — authentication and authorization concerns
