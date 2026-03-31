@@ -124,9 +124,8 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 
 ### Integration tests
 
-- Put integration tests in `src/integration-test/java`.
-- Use abstract classes for shared test setup.
 - Use integration tests for Spring wiring, persistence, and end-to-end flows.
+- Prefer a separate integration-test structure only if the project later adopts it consistently.
 - Use real application context only where it adds value.
 - Keep test setup understandable and maintainable.
 
@@ -230,9 +229,9 @@ Add the PostgreSQL JDBC driver to `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>org.postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <scope>runtime</scope>
+  <groupId>org.postgresql</groupId>
+  <artifactId>postgresql</artifactId>
+  <scope>runtime</scope>
 </dependency>
 ```
 
@@ -269,14 +268,14 @@ Integration tests that require a real database should use a dedicated test datas
 
 ```xml
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-testcontainers</artifactId>
-    <scope>test</scope>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-testcontainers</artifactId>
+  <scope>test</scope>
 </dependency>
 <dependency>
-<groupId>org.testcontainers</groupId>
-<artifactId>postgresql</artifactId>
-<scope>test</scope>
+  <groupId>org.testcontainers</groupId>
+  <artifactId>postgresql</artifactId>
+  <scope>test</scope>
 </dependency>
 ```
 
