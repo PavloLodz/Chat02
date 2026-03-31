@@ -1,16 +1,10 @@
 package pl.ldz.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "user_sessions")
 public class UserSession extends AbstractEntity {
@@ -30,4 +24,21 @@ public class UserSession extends AbstractEntity {
 
   @Column(name = "expires_at")
   private Instant expiresAt;
+
+  public UserSession() {}
+
+  public User getUser() { return user; }
+  public void setUser(User user) { this.user = user; }
+
+  public String getToken() { return token; }
+  public void setToken(String token) { this.token = token; }
+
+  public String getIpAddress() { return ipAddress; }
+  public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
+
+  public String getUserAgent() { return userAgent; }
+  public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
+
+  public Instant getExpiresAt() { return expiresAt; }
+  public void setExpiresAt(Instant expiresAt) { this.expiresAt = expiresAt; }
 }

@@ -1,13 +1,7 @@
 package pl.ldz.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "attachments")
 public class Attachment extends AbstractEntity {
@@ -27,4 +21,21 @@ public class Attachment extends AbstractEntity {
 
   @Column(name = "url", nullable = false)
   private String url;
+
+  public Attachment() {}
+
+  public Message getMessage() { return message; }
+  public void setMessage(Message message) { this.message = message; }
+
+  public String getFileName() { return fileName; }
+  public void setFileName(String fileName) { this.fileName = fileName; }
+
+  public String getFileType() { return fileType; }
+  public void setFileType(String fileType) { this.fileType = fileType; }
+
+  public Long getFileSize() { return fileSize; }
+  public void setFileSize(Long fileSize) { this.fileSize = fileSize; }
+
+  public String getUrl() { return url; }
+  public void setUrl(String url) { this.url = url; }
 }

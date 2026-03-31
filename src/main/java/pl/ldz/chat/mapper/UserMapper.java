@@ -1,24 +1,53 @@
 package pl.ldz.chat.mapper;
 
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.springframework.stereotype.Component;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
 import pl.ldz.chat.entity.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-public interface UserMapper {
+@Component
+public class UserMapper {
 
-  UserResponseDto toResponseDto(User user);
+  public UserResponseDto toResponseDto(User user) {
+    return new UserResponseDto(
+      user.getId(),
+      user.getVersion(),
+      user.getCreationTimestamp(),
+      user.getUpdateTimestamp(),
+      user.getUsername(),
+      user.getEmail(),
+      user.getDisplayName(),
+      user.getAvatarUrl(),
+      user.isOnline()
+    );
+  }
 
-  User toEntity(UserRequestDto dto);
+  public User toEntity(UserRequestDto dto) {
+    User user = new User();
+    user.setUsername(dto.username());
+    user.setEmail(dto.email());
+    user.setPasswordHash(dto.passwordHash());
+    user.setDisplayName(dto.displayName());
+    user.setAvatarUrl(dto.avatarUrl());
+    user.setOnline(dto.online());
+    return user;
+  }
 
-  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  void updateEntityFromDto(UserRequestDto dto, @MappingTarget User user);
+  public void updateEntityFromDto(UserRequestDto dto, User user) {
+    if (dto.username() != null) user.setUsername(dto.username());
+    if (dto.email() != null) user.setEmail(dto.email());
+    if (dto.passwordHash() != null) user.setPasswordHash(dto.passwordHash());
+    if (dto.displayName() != null) user.setDisplayName(dto.displayName());
+    if (dto.avatarUrl() != null) user.setAvatarUrl(dto.avatarUrl());
+    user.setOnline(dto.online());
+  }
 
-  List<UserResponseDto> toResponseDtoList(List<User> users);
+  public List<UserResponseDto> toResponseDtoList(List<User> users) {
+    return users.stream()
+      .map(this::toResponseDto)
+      .collect(Collectors.toList());
+  }
 }

@@ -1,13 +1,7 @@
 package pl.ldz.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "friend_requests",
   uniqueConstraints = @UniqueConstraint(columnNames = {"sender_id", "receiver_id"}))
@@ -23,4 +17,15 @@ public class FriendRequest extends AbstractEntity {
 
   @Column(name = "status", nullable = false, length = 20)
   private String status = "PENDING";
+
+  public FriendRequest() {}
+
+  public User getSender() { return sender; }
+  public void setSender(User sender) { this.sender = sender; }
+
+  public User getReceiver() { return receiver; }
+  public void setReceiver(User receiver) { this.receiver = receiver; }
+
+  public String getStatus() { return status; }
+  public void setStatus(String status) { this.status = status; }
 }

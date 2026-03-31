@@ -1,13 +1,7 @@
 package pl.ldz.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity {
@@ -29,4 +23,24 @@ public class User extends AbstractEntity {
 
   @Column(name = "online", nullable = false)
   private boolean online = false;
+
+  public User() {}
+
+  public String getUsername() { return username; }
+  public void setUsername(String username) { this.username = username; }
+
+  public String getEmail() { return email; }
+  public void setEmail(String email) { this.email = email; }
+
+  public String getPasswordHash() { return passwordHash; }
+  public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+
+  public String getDisplayName() { return displayName; }
+  public void setDisplayName(String displayName) { this.displayName = displayName; }
+
+  public String getAvatarUrl() { return avatarUrl; }
+  public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+
+  public boolean isOnline() { return online; }
+  public void setOnline(boolean online) { this.online = online; }
 }
