@@ -13,12 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "id", updatable = false, nullable = false)
-  private UUID id;
+public class User extends AbstractEntity {
 
   @Column(name = "username", nullable = false, unique = true, length = 50)
   private String username;
@@ -37,21 +32,4 @@ public class User {
 
   @Column(name = "online", nullable = false)
   private boolean online = false;
-
-  @Column(name = "created_at", nullable = false, updatable = false)
-  private Instant createdAt;
-
-  @Column(name = "updated_at", nullable = false)
-  private Instant updatedAt;
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = Instant.now();
-    updatedAt = Instant.now();
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    updatedAt = Instant.now();
-  }
 }
