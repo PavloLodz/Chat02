@@ -5,21 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "friend_requests",
   uniqueConstraints = @UniqueConstraint(columnNames = {"sender_id", "receiver_id"}))
-public class FriendRequest {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  @Column(name = "id", updatable = false, nullable = false)
-  private UUID id;
+public class FriendRequest extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "sender_id", nullable = false)
@@ -31,12 +23,4 @@ public class FriendRequest {
 
   @Column(name = "status", nullable = false, length = 20)
   private String status = "PENDING";
-
-  @Column(name = "created_at", nullable = false, updatable = false)
-  private Instant createdAt;
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = Instant.now();
-  }
 }
