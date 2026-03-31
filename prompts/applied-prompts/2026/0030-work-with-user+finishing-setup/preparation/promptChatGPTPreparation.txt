@@ -1,0 +1,472 @@
+I have entity JPA file. Please generate prompt for Intellij IDEA (junie)
+
+Please use variables for ID_TYPE,entity, dto, repository, service, controller
+
+* Create DTOs.
+* Create Abstract Spring JPA CRUD repository interface with pagination.
+* Create Spring JPA repository interface.
+* Create Abstract Integration repository test.
+* Create Integration repository test.
+* Create Abstract service class
+* Create service class
+* Create Abstract Service integration test class
+* Create Service integration test class
+* Create Controller
+* Create Abstract Controller integration test class
+* Create Controller integration test class
+
+---
+```text
+You are generating a Spring Boot layered architecture based on an existing JPA entity.
+
+Use the following variables:
+- ${ENTITY_NAME} – name of the JPA entity (e.g., User)
+- ${ENTITY_PACKAGE}
+- ${BASE_PACKAGE} – root package (e.g., com.example.app)
+- ${ID_TYPE} – type of entity ID (e.g., Long, UUID)
+
+Generate code following best practices (Spring Boot 3+, Jakarta, constructor injection, clean architecture, Lombok, MapStruct for mapping, and JUnit 5 + Testcontainers for integration tests).
+
+IMPORTANT:
+- Repository layer works on ENTITY
+- Service layer works ONLY on DTO
+- Controller layer works ONLY on DTO
+- Use MapStruct for entity <-> DTO mapping
+
+--------------------------------------------------
+1. DTO LAYER
+--------------------------------------------------
+Create DTOs in package: ${BASE_PACKAGE}.dto
+
+1. ${ENTITY_NAME}Dto
+- Fields mirror entity
+- Use Lombok
+
+2. ${ENTITY_NAME}CreateDto
+- Used for POST
+- Exclude ID
+
+3. ${ENTITY_NAME}UpdateDto
+- Used for PUT/PATCH
+- Include updatable fields only (exclude ID)
+- Allow partial updates (nullable fields)
+
+--------------------------------------------------
+2. MAPPER
+--------------------------------------------------
+Create MapStruct mapper:
+- Name: ${ENTITY_NAME}Mapper
+- Package: ${BASE_PACKAGE}.mapper
+- @Mapper(componentModel = "spring")
+
+Methods:
+- ${ENTITY_NAME}Dto toDto(${ENTITY_NAME} entity)
+- ${ENTITY_NAME} toEntity(${ENTITY_NAME}CreateDto dto)
+
+UPDATE SUPPORT:
+- void updateEntityFromDto(${ENTITY_NAME}UpdateDto dto, @MappingTarget ${ENTITY_NAME} entity)
+- Configure:
+  @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+
+- List mappings
+- Page mapping helper (default method)
+
+--------------------------------------------------
+3. ABSTRACT JPA REPOSITORY
+--------------------------------------------------
+Create:
+- AbstractRepository<T, ID>
+- Package: ${BASE_PACKAGE}.repository.base
+- @NoRepositoryBean
+- Extend JpaRepository<T, ID>
+
+--------------------------------------------------
+4. CONCRETE JPA REPOSITORY
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Repository
+- Extend AbstractRepository<${ENTITY_NAME}, ${ID_TYPE}>
+- @Repository
+
+--------------------------------------------------
+5. ABSTRACT REPOSITORY INTEGRATION TEST
+--------------------------------------------------
+Create:
+- AbstractRepositoryIT
+- @DataJpaTest
+- @Testcontainers
+- PostgreSQLContainer config
+
+--------------------------------------------------
+6. CONCRETE REPOSITORY INTEGRATION TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}RepositoryIT
+- Test entity persistence & pagination
+
+--------------------------------------------------
+7. ABSTRACT SERVICE (DTO-BASED)
+--------------------------------------------------
+Create:
+- AbstractService<T, ID>
+- Package: ${BASE_PACKAGE}.service.base
+
+Methods:
+- T create(T dto)
+- T update(ID id, T dto)
+- Optional<T> findById(ID id)
+- Page<T> findAll(Pageable pageable)
+- void delete(ID id)
+
+--------------------------------------------------
+8. CONCRETE SERVICE
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Service
+- @Service
+
+Dependencies:
+- ${ENTITY_NAME}Repository
+- ${ENTITY_NAME}Mapper
+
+Behavior:
+- CREATE:
+  - map CreateDto → Entity
+  - save
+  - return DTO
+
+- UPDATE:
+  - fetch entity by id (throw exception if not found)
+  - mapper.updateEntityFromDto(updateDto, entity)
+  - save updated entity
+  - return DTO
+
+- READ:
+  - map Entity → DTO
+
+- PAGINATION:
+  - map Page<Entity> → Page<DTO>
+
+--------------------------------------------------
+9. ABSTRACT SERVICE INTEGRATION TEST
+--------------------------------------------------
+Create:
+- AbstractServiceIT
+- @SpringBootTest
+- @Testcontainers
+
+--------------------------------------------------
+10. CONCRETE SERVICE INTEGRATION TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}ServiceIT
+
+Test:
+- create using CreateDto
+- update using UpdateDto
+- verify partial update (unchanged fields remain)
+- fetch as DTO
+- pagination
+- delete
+
+--------------------------------------------------
+11. CONTROLLER (DTO-ONLY)
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Controller
+- @RestController
+- Base path: /api/${ENTITY_NAME_LOWER}s
+
+Endpoints:
+
+POST /
+- Input: ${ENTITY_NAME}CreateDto
+- Output: ${ENTITY_NAME}Dto
+
+PUT /{id}
+- Input: ${ENTITY_NAME}UpdateDto
+- Output: ${ENTITY_NAME}Dto
+
+PATCH /{id}
+- Input: ${ENTITY_NAME}UpdateDto
+- Output: ${ENTITY_NAME}Dto
+- Partial update supported
+
+GET /{id}
+- Output: ${ENTITY_NAME}Dto
+
+GET /
+- Output: Page<${ENTITY_NAME}Dto>
+
+DELETE /{id}
+
+--------------------------------------------------
+12. ABSTRACT CONTROLLER TEST
+--------------------------------------------------
+Create:
+- AbstractControllerIT
+- @SpringBootTest
+- @AutoConfigureMockMvc
+
+--------------------------------------------------
+13. CONCRETE CONTROLLER TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}ControllerIT
+
+Test:
+- POST create
+- PUT update (full update)
+- PATCH update (partial update)
+- GET by id
+- GET paginated
+- DELETE
+
+--------------------------------------------------
+RULES
+--------------------------------------------------
+- Use Lombok
+- Use constructor injection only
+- Use MapStruct (no manual mapping)
+- Use @BeanMapping(nullValuePropertyMappingStrategy = IGNORE) for partial updates
+- Use AssertJ
+- Do NOT expose entity in controller/service
+- Keep code production-ready
+```
+
+==============================================================================================
+
+Use the following variables:
+- ${ENTITY_NAME} – name of the JPA entity (e.g., User)
+- ${ENTITY_PACKAGE}
+- ${BASE_PACKAGE} – root package (e.g., com.example.app)
+- ${ID_TYPE} – type of entity ID (e.g., Long, UUID)
+
+Generate code following best practices (Spring Boot 3+, Jakarta, constructor injection, clean architecture, Lombok, MapStruct for mapping, OpenAPI (springdoc-openapi), and JUnit 5 + Testcontainers for integration tests).
+
+IMPORTANT:
+- Repository layer works on ENTITY
+- Service layer works ONLY on DTO
+- Controller layer works ONLY on DTO
+- Use MapStruct for entity <-> DTO mapping
+- Document API using OpenAPI annotations
+
+--------------------------------------------------
+1. DTO LAYER
+--------------------------------------------------
+Create DTOs in package: ${BASE_PACKAGE}.dto
+
+1. ${ENTITY_NAME}Dto
+- Fields mirror entity
+- Use Lombok
+- Annotate with @Schema(description = "...")
+
+2. ${ENTITY_NAME}CreateDto
+- Used for POST
+- Exclude ID
+- Add validation annotations (@NotNull, @NotBlank, etc.)
+- Annotate fields with @Schema
+
+3. ${ENTITY_NAME}UpdateDto
+- Used for PUT/PATCH
+- Include updatable fields only (exclude ID)
+- Allow nullable fields for partial update
+- Annotate with @Schema
+
+--------------------------------------------------
+2. MAPPER
+--------------------------------------------------
+Create MapStruct mapper:
+- Name: ${ENTITY_NAME}Mapper
+- Package: ${BASE_PACKAGE}.mapper
+- @Mapper(componentModel = "spring")
+
+Methods:
+- ${ENTITY_NAME}Dto toDto(${ENTITY_NAME} entity)
+- ${ENTITY_NAME} toEntity(${ENTITY_NAME}CreateDto dto)
+
+UPDATE SUPPORT:
+- void updateEntityFromDto(${ENTITY_NAME}UpdateDto dto, @MappingTarget ${ENTITY_NAME} entity)
+- Use:
+  @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+
+- Add list + page mapping
+
+--------------------------------------------------
+3. ABSTRACT JPA REPOSITORY
+--------------------------------------------------
+Create:
+- AbstractRepository<T, ID>
+- Package: ${BASE_PACKAGE}.repository.base
+- @NoRepositoryBean
+- Extend JpaRepository<T, ID>
+
+--------------------------------------------------
+4. CONCRETE JPA REPOSITORY
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Repository
+- Extend AbstractRepository<${ENTITY_NAME}, ${ID_TYPE}>
+- @Repository
+
+--------------------------------------------------
+5. ABSTRACT REPOSITORY INTEGRATION TEST
+--------------------------------------------------
+Create:
+- AbstractRepositoryIT
+- @DataJpaTest
+- @Testcontainers
+- PostgreSQLContainer config
+
+--------------------------------------------------
+6. CONCRETE REPOSITORY INTEGRATION TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}RepositoryIT
+- Test entity persistence & pagination
+
+--------------------------------------------------
+7. ABSTRACT SERVICE (DTO-BASED)
+--------------------------------------------------
+Create:
+- AbstractService<T, ID>
+- Package: ${BASE_PACKAGE}.service.base
+
+Methods:
+- T create(T dto)
+- T update(ID id, T dto)
+- Optional<T> findById(ID id)
+- Page<T> findAll(Pageable pageable)
+- void delete(ID id)
+
+--------------------------------------------------
+8. CONCRETE SERVICE
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Service
+- @Service
+
+Dependencies:
+- ${ENTITY_NAME}Repository
+- ${ENTITY_NAME}Mapper
+
+Behavior:
+- CREATE → map CreateDto → Entity → save → DTO
+- UPDATE → fetch → apply UpdateDto → save → DTO
+- READ → Entity → DTO
+- PAGINATION → Page<Entity> → Page<DTO>
+
+--------------------------------------------------
+9. ABSTRACT SERVICE INTEGRATION TEST
+--------------------------------------------------
+Create:
+- AbstractServiceIT
+- @SpringBootTest
+- @Testcontainers
+
+--------------------------------------------------
+10. CONCRETE SERVICE INTEGRATION TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}ServiceIT
+
+Test:
+- create
+- update (PUT + PATCH behavior)
+- partial update verification
+- fetch
+- pagination
+- delete
+
+--------------------------------------------------
+11. CONTROLLER (DTO-ONLY + OPENAPI)
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}Controller
+- @RestController
+- @RequestMapping("/api/${ENTITY_NAME_LOWER}s")
+- @Tag(name = "${ENTITY_NAME}", description = "${ENTITY_NAME} management API")
+
+Endpoints:
+
+POST /
+- @Operation(summary = "Create ${ENTITY_NAME}")
+- @ApiResponse(responseCode = "201", description = "Created")
+- Input: @Valid @RequestBody ${ENTITY_NAME}CreateDto
+- Output: ${ENTITY_NAME}Dto
+
+PUT /{id}
+- @Operation(summary = "Update ${ENTITY_NAME}")
+- @ApiResponse(responseCode = "200", description = "Updated")
+- Input: @Valid @RequestBody ${ENTITY_NAME}UpdateDto
+- Output: ${ENTITY_NAME}Dto
+
+PATCH /{id}
+- @Operation(summary = "Partially update ${ENTITY_NAME}")
+- @ApiResponse(responseCode = "200", description = "Updated")
+- Input: @RequestBody ${ENTITY_NAME}UpdateDto
+- Output: ${ENTITY_NAME}Dto
+
+GET /{id}
+- @Operation(summary = "Get ${ENTITY_NAME} by ID")
+- @ApiResponse(responseCode = "200", description = "Found")
+- Output: ${ENTITY_NAME}Dto
+
+GET /
+- @Operation(summary = "Get paginated ${ENTITY_NAME} list")
+- Output: Page<${ENTITY_NAME}Dto>
+
+DELETE /{id}
+- @Operation(summary = "Delete ${ENTITY_NAME}")
+- @ApiResponse(responseCode = "204", description = "Deleted")
+
+--------------------------------------------------
+12. OPENAPI CONFIG
+--------------------------------------------------
+Create configuration class:
+- Name: OpenApiConfig
+- Package: ${BASE_PACKAGE}.config
+
+Add:
+- @OpenAPIDefinition(
+    info = @Info(
+        title = "${ENTITY_NAME} API",
+        version = "v1",
+        description = "API documentation for ${ENTITY_NAME}"
+    )
+  )
+
+--------------------------------------------------
+13. ABSTRACT CONTROLLER TEST
+--------------------------------------------------
+Create:
+- AbstractControllerIT
+- @SpringBootTest
+- @AutoConfigureMockMvc
+
+--------------------------------------------------
+14. CONCRETE CONTROLLER TEST
+--------------------------------------------------
+Create:
+- ${ENTITY_NAME}ControllerIT
+
+Test:
+- POST
+- PUT
+- PATCH
+- GET
+- pagination
+- DELETE
+
+--------------------------------------------------
+RULES
+--------------------------------------------------
+- Use Lombok
+- Use constructor injection only
+- Use MapStruct (no manual mapping)
+- Use @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
+- Use OpenAPI annotations (@Operation, @ApiResponse, @Tag, @Schema)
+- Use validation annotations
+- Use AssertJ
+- Do NOT expose entity in controller/service
+- Keep code production-ready
