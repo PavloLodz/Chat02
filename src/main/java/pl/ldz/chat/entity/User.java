@@ -24,6 +24,9 @@ public class User extends AbstractEntity {
   @Column(name = "online", nullable = false)
   private boolean online = false;
 
+  @Column(name = "role", nullable = false, length = 20)
+  private String role = "USER";
+
   public User() {}
 
   public String getUsername() { return username; }
@@ -43,4 +46,7 @@ public class User extends AbstractEntity {
 
   public boolean isOnline() { return online; }
   public void setOnline(boolean online) { this.online = online; }
+
+  public String getRole() { return role; }
+  public void setRole(String role) { this.role = role; }
 }

@@ -23,7 +23,7 @@ docker compose down -v
 ---
 
 To run everything:
-bash
+
 docker compose up --build
 The app will be at http://localhost:8080 and Swagger UI at http://localhost:8080/swagger-ui/index.html. 
 The first build will take a few minutes while Maven downloads dependencies — subsequent builds will be much faster thanks to Docker layer caching.

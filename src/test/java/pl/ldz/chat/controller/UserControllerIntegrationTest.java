@@ -17,7 +17,8 @@ class UserControllerIntegrationTest extends AbstractControllerIntegrationTest {
       "hash_" + suffix,
       "Display " + suffix,
       null,
-      false
+      false,
+      ""
     );
   }
 
@@ -62,7 +63,7 @@ class UserControllerIntegrationTest extends AbstractControllerIntegrationTest {
   @Test
   @WithMockUser(roles = "ADMIN")
   void shouldReturn422ForInvalidRequest() throws Exception {
-    UserRequestDto invalid = new UserRequestDto("", "not-an-email", "", null, null, false);
+    UserRequestDto invalid = new UserRequestDto("", "not-an-email", "", null, null, false, "");
     String body = objectMapper.writeValueAsString(invalid);
 
     mockMvc.perform(post("/api/v1/users")

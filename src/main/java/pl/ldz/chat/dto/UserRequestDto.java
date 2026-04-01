@@ -21,5 +21,7 @@ public record UserRequestDto(
 
   String avatarUrl,
 
-  boolean online
+  boolean online,
+
+  String role
 ) {}

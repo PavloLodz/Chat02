@@ -12,5 +12,6 @@ public record UserResponseDto(
   String email,
   String displayName,
   String avatarUrl,
-  boolean online
+  boolean online,
+  String role
 ) {}

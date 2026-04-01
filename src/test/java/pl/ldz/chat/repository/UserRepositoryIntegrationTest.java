@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import pl.ldz.chat.entity.User;
+import pl.ldz.chat.exception.EntityNotFoundException;
 import pl.ldz.chat.repository.base.AbstractRepositoryIntegrationTest;
 
 import java.util.Optional;
@@ -60,7 +61,9 @@ class UserRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
     entityManager.flush();
     entityManager.clear();
 
-    User updated = userRepository.findById(saved.getId()).orElseThrow();
+    User updated = userRepository.findById(saved.getId())
+        // it will be very strange:
+        .orElseThrow(() -> new EntityNotFoundException("User", saved.getId()));
 
     assertThat(updated).isNotNull();
     assertThat(updated.getDisplayName()).isEqualTo("Updated Name");

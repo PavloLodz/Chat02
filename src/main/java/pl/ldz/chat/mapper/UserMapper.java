@@ -21,7 +21,8 @@ public class UserMapper {
       user.getEmail(),
       user.getDisplayName(),
       user.getAvatarUrl(),
-      user.isOnline()
+      user.isOnline(),
+      user.getRole()
     );
   }
 
@@ -33,6 +34,7 @@ public class UserMapper {
     user.setDisplayName(dto.displayName());
     user.setAvatarUrl(dto.avatarUrl());
     user.setOnline(dto.online());
+    if (dto.role() != null) user.setRole(dto.role());
     return user;
   }
 
@@ -42,6 +44,7 @@ public class UserMapper {
     if (dto.passwordHash() != null) user.setPasswordHash(dto.passwordHash());
     if (dto.displayName() != null) user.setDisplayName(dto.displayName());
     if (dto.avatarUrl() != null) user.setAvatarUrl(dto.avatarUrl());
+    if (dto.role() != null) user.setRole(dto.role());
     user.setOnline(dto.online());
   }
 

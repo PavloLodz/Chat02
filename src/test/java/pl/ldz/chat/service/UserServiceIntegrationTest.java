@@ -26,7 +26,8 @@ class UserServiceIntegrationTest extends AbstractServiceIntegrationTest {
       "hash_" + suffix,
       "Display " + suffix,
       null,
-      false
+      false,
+        ""
     );
   }
 
@@ -70,7 +71,7 @@ class UserServiceIntegrationTest extends AbstractServiceIntegrationTest {
   void shouldUpdateUser() {
     UserResponseDto created = userService.create(buildRequest("svc5"));
     UserRequestDto updateRequest = new UserRequestDto(
-      "user_svc5", "user_svc5@example.com", "newhash", "New Name", null, true
+      "user_svc5", "user_svc5@example.com", "newhash", "New Name", null, true, ""
     );
 
     UserResponseDto updated = userService.update(created.id(), updateRequest);
