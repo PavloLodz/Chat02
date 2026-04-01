@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import pl.ldz.chat.entity.User;
 import pl.ldz.chat.exception.EntityNotFoundException;
-import pl.ldz.chat.repository.base.AbstractRepositoryIntegrationTest;
+import pl.ldz.chat.repository.base.AbstractRepositoryIT;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
+class UserRepositoryIT extends AbstractRepositoryIT {
 
   @Autowired private UserRepository userRepository;
   @Autowired private TestEntityManager entityManager;

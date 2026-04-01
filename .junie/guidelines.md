@@ -124,6 +124,7 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 
 ### Integration tests
 
+- Suffix of integration tests is `IT`.
 - Put integration tests in `src/integration-test/java`.
 - Use abstract classes for shared test setup.
 - Use integration tests for Spring wiring, persistence, and end-to-end flows.

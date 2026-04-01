@@ -8,7 +8,7 @@ import pl.ldz.chat.dto.UserRequestDto;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class UserControllerIntegrationTest extends AbstractControllerIntegrationTest {
+class UserControllerIT extends AbstractControllerIT {
 
   private UserRequestDto buildRequest(String suffix) {
     return new UserRequestDto(

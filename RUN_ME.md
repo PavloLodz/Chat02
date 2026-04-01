@@ -1,22 +1,27 @@
 
 # Run locally (requires a running PostgreSQL on localhost:5432)
 
-```
+```bash
 mvn clean package -DskipTests
 ```
 
-# Unit tests only — fast, no Docker required
-```
+# Run Tests
+
+## Unit tests only
+Fast, no Docker required. Tests are located in `src/test/java`.
+```bash
 mvn test
 ```
 
-# Integration tests only — requires Docker (Testcontainers)
-```
-mvn clean verify -P integration-tests
+## Integration tests only
+Requires Docker (Testcontainers). Tests are located in `src/integration-test/java`.
+```bash
+mvn failsafe:integration-test
 ```
 
-# Both unit + integration
-```
-mvn clean verify -P integration-tests -Dsurefire.excludes=
+## All tests (Unit + Integration)
+Requires Docker (Testcontainers).
+```bash
+mvn verify
 ```
 

@@ -1,20 +1,20 @@
-package pl.ldz.chat.repository.base;
+package pl.ldz.chat.controller;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import pl.ldz.chat.config.JpaConfig;
 
-@DataJpaTest
+@SpringBootTest
+@AutoConfigureMockMvc
 @Testcontainers
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(JpaConfig.class)
-public abstract class AbstractRepositoryIntegrationTest {
+public abstract class AbstractControllerIT {
 
   @Container
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
@@ -24,5 +24,12 @@ public abstract class AbstractRepositoryIntegrationTest {
     registry.add("spring.datasource.url", postgres::getJdbcUrl);
     registry.add("spring.datasource.username", postgres::getUsername);
     registry.add("spring.datasource.password", postgres::getPassword);
+    registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
   }
+
+  @Autowired
+  protected MockMvc mockMvc;
+
+  @Autowired
+  protected ObjectMapper objectMapper;
 }

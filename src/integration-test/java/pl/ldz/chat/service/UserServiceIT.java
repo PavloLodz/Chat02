@@ -7,14 +7,14 @@ import org.springframework.data.domain.PageRequest;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
 import pl.ldz.chat.exception.EntityNotFoundException;
-import pl.ldz.chat.service.base.AbstractServiceIntegrationTest;
+import pl.ldz.chat.service.base.AbstractServiceIT;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class UserServiceIntegrationTest extends AbstractServiceIntegrationTest {
+class UserServiceIT extends AbstractServiceIT {
 
   @Autowired
   private UserService userService;
