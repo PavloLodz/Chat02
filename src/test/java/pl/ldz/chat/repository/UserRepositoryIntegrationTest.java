@@ -2,6 +2,7 @@ package pl.ldz.chat.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import pl.ldz.chat.entity.User;
 import pl.ldz.chat.repository.base.AbstractRepositoryIntegrationTest;
 
@@ -11,8 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class UserRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
+  @Autowired private TestEntityManager entityManager;
 
   private User buildUser(String suffix) {
     User user = new User();
@@ -53,8 +54,15 @@ class UserRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest {
   void shouldUpdateUser() {
     User saved = userRepository.save(buildUser("d"));
     saved.setDisplayName("Updated Name");
-    User updated = userRepository.save(saved);
+    userRepository.save(saved);
 
+    // Force the UPDATE SQL to execute and clear the cache
+    entityManager.flush();
+    entityManager.clear();
+
+    User updated = userRepository.findById(saved.getId()).orElseThrow();
+
+    assertThat(updated).isNotNull();
     assertThat(updated.getDisplayName()).isEqualTo("Updated Name");
     assertThat(updated.getVersion()).isGreaterThan(0);
   }
