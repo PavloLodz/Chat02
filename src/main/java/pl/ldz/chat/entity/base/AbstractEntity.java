@@ -1,4 +1,4 @@
-package pl.ldz.chat.entity;
+package pl.ldz.chat.entity.base;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,8 +8,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public abstract class AbstractEntity {
 
   @Id
@@ -26,19 +31,15 @@ public abstract class AbstractEntity {
   @LastModifiedDate
   private Instant updateTimestamp;
 
-  public UUID getId() {
-    return id;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof AbstractEntity that)) return false;
+    return id != null && id.equals(that.getId());
   }
 
-  public Long getVersion() {
-    return version;
-  }
-
-  public Instant getCreationTimestamp() {
-    return creationTimestamp;
-  }
-
-  public Instant getUpdateTimestamp() {
-    return updateTimestamp;
+  @Override
+  public int hashCode() {
+    return getClass().hashCode();
   }
 }

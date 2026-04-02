@@ -52,8 +52,11 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 - Use descriptive names for packages, classes, methods, and variables.
 - Avoid duplication; extract reusable logic only when it is genuinely shared.
 - Prefer immutable data where practical.
-- If Lombok is used, keep annotations minimal and readable.
 - Use **2 spaces** for indentation in Java and XML files.
+- Use Lombok to reduce boilerplate (e.g., `@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor`, `@Builder`, `@Slf4j`).
+- Avoid `@Data` on JPA entities to prevent issues with `equals`, `hashCode`, and `toString` on lazy relationships.
+- Use @Getter, @Setter on JPA entities. Implement equals(), hashCode() and toString() manually.
+- Prefer constructor injection (can use `@RequiredArgsConstructor`).
 
 ### Formatting
 

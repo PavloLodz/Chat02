@@ -14,7 +14,7 @@ This task list is based on the implementation plan in `prompts/plan.md` and the 
 2. [x] JPA Auditing Configuration (STEP 1)
    - [x] Create `pl.ldz.chat.config.JpaConfig` with `@EnableJpaAuditing`
 3. [x] `AbstractEntity` (STEP 1)
-   - [x] Create `pl.ldz.chat.entity.AbstractEntity`
+   - [x] Create `pl.ldz.chat.entity.base.AbstractEntity`
    - [x] Add fields: `id` (UUID), `version` (Long), `creationTimestamp` (Instant), `updateTimestamp` (Instant)
    - [x] Annotate with `@MappedSuperclass` and `@EntityListeners(AuditingEntityListener.class)`
    - [x] Implement only getters for these fields

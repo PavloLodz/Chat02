@@ -1,9 +1,15 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 @Entity
 @Table(name = "room_invitations")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoomInvitation extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -18,20 +24,15 @@ public class RoomInvitation extends AbstractEntity {
   @JoinColumn(name = "invited_user_id", nullable = false)
   private User invitedUser;
 
+  @Builder.Default
   @Column(name = "status", nullable = false, length = 20)
   private String status = "PENDING";
 
-  public RoomInvitation() {}
-
-  public ChatRoom getRoom() { return room; }
-  public void setRoom(ChatRoom room) { this.room = room; }
-
-  public User getInvitedBy() { return invitedBy; }
-  public void setInvitedBy(User invitedBy) { this.invitedBy = invitedBy; }
-
-  public User getInvitedUser() { return invitedUser; }
-  public void setInvitedUser(User invitedUser) { this.invitedUser = invitedUser; }
-
-  public String getStatus() { return status; }
-  public void setStatus(String status) { this.status = status; }
+  @Override
+  public String toString() {
+    return "RoomInvitation{" +
+      "id=" + getId() +
+      ", status='" + status + '\'' +
+      '}';
+  }
 }

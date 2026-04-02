@@ -1,9 +1,15 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 @Entity
 @Table(name = "messages")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Message extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -21,29 +27,19 @@ public class Message extends AbstractEntity {
   @Column(name = "content", nullable = false, columnDefinition = "TEXT")
   private String content;
 
+  @Builder.Default
   @Column(name = "edited", nullable = false)
   private boolean edited = false;
 
+  @Builder.Default
   @Column(name = "deleted", nullable = false)
   private boolean deleted = false;
 
-  public Message() {}
-
-  public User getSender() { return sender; }
-  public void setSender(User sender) { this.sender = sender; }
-
-  public ChatRoom getChatRoom() { return chatRoom; }
-  public void setChatRoom(ChatRoom chatRoom) { this.chatRoom = chatRoom; }
-
-  public PersonalChat getPersonalChat() { return personalChat; }
-  public void setPersonalChat(PersonalChat personalChat) { this.personalChat = personalChat; }
-
-  public String getContent() { return content; }
-  public void setContent(String content) { this.content = content; }
-
-  public boolean isEdited() { return edited; }
-  public void setEdited(boolean edited) { this.edited = edited; }
-
-  public boolean isDeleted() { return deleted; }
-  public void setDeleted(boolean deleted) { this.deleted = deleted; }
+  @Override
+  public String toString() {
+    return "Message{" +
+      "id=" + getId() +
+      ", content='" + (content != null && content.length() > 20 ? content.substring(0, 20) + "..." : content) + '\'' +
+      '}';
+  }
 }

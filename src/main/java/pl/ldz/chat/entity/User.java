@@ -1,9 +1,17 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User extends AbstractEntity {
 
   @Column(name = "username", nullable = false, unique = true, length = 50)
@@ -21,32 +29,20 @@ public class User extends AbstractEntity {
   @Column(name = "avatar_url")
   private String avatarUrl;
 
+  @Builder.Default
   @Column(name = "online", nullable = false)
   private boolean online = false;
 
+  @Builder.Default
   @Column(name = "role", nullable = false, length = 20)
   private String role = "USER";
 
-  public User() {}
-
-  public String getUsername() { return username; }
-  public void setUsername(String username) { this.username = username; }
-
-  public String getEmail() { return email; }
-  public void setEmail(String email) { this.email = email; }
-
-  public String getPasswordHash() { return passwordHash; }
-  public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
-
-  public String getDisplayName() { return displayName; }
-  public void setDisplayName(String displayName) { this.displayName = displayName; }
-
-  public String getAvatarUrl() { return avatarUrl; }
-  public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
-
-  public boolean isOnline() { return online; }
-  public void setOnline(boolean online) { this.online = online; }
-
-  public String getRole() { return role; }
-  public void setRole(String role) { this.role = role; }
+  @Override
+  public String toString() {
+    return "User{" +
+      "id=" + getId() +
+      ", username='" + username + '\'' +
+      ", email='" + email + '\'' +
+      '}';
+  }
 }

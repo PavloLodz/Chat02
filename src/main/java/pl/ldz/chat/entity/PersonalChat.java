@@ -1,10 +1,16 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 @Entity
 @Table(name = "personal_chats",
   uniqueConstraints = @UniqueConstraint(columnNames = {"user1_id", "user2_id"}))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PersonalChat extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -15,11 +21,10 @@ public class PersonalChat extends AbstractEntity {
   @JoinColumn(name = "user2_id", nullable = false)
   private User user2;
 
-  public PersonalChat() {}
-
-  public User getUser1() { return user1; }
-  public void setUser1(User user1) { this.user1 = user1; }
-
-  public User getUser2() { return user2; }
-  public void setUser2(User user2) { this.user2 = user2; }
+  @Override
+  public String toString() {
+    return "PersonalChat{" +
+      "id=" + getId() +
+      '}';
+  }
 }

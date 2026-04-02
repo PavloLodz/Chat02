@@ -1,9 +1,9 @@
 package pl.ldz.chat.controller;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/users")
 @Tag(name = "Users", description = "User management endpoints")
+@RequiredArgsConstructor
 public class UserController {
 
   private final CrudService<pl.ldz.chat.entity.User, UUID, UserRequestDto, UserResponseDto> userService;
-
-  public UserController(CrudService<pl.ldz.chat.entity.User, UUID, UserRequestDto, UserResponseDto> userService) {
-    this.userService = userService;
-  }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)

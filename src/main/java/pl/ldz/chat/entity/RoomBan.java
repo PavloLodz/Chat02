@@ -1,10 +1,16 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 @Entity
 @Table(name = "room_bans",
   uniqueConstraints = @UniqueConstraint(columnNames = {"room_id", "user_id"}))
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoomBan extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -22,17 +28,10 @@ public class RoomBan extends AbstractEntity {
   @Column(name = "reason")
   private String reason;
 
-  public RoomBan() {}
-
-  public ChatRoom getRoom() { return room; }
-  public void setRoom(ChatRoom room) { this.room = room; }
-
-  public User getUser() { return user; }
-  public void setUser(User user) { this.user = user; }
-
-  public User getBannedBy() { return bannedBy; }
-  public void setBannedBy(User bannedBy) { this.bannedBy = bannedBy; }
-
-  public String getReason() { return reason; }
-  public void setReason(String reason) { this.reason = reason; }
+  @Override
+  public String toString() {
+    return "RoomBan{" +
+      "id=" + getId() +
+      '}';
+  }
 }

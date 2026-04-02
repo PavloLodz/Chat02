@@ -1,5 +1,6 @@
 package pl.ldz.chat.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,10 @@ import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService implements CrudService<User, UUID, UserRequestDto, UserResponseDto> {
-
   private final UserRepository userRepository;
   private final UserMapper userMapper;
-
-  public UserService(UserRepository userRepository, UserMapper userMapper) {
-    this.userRepository = userRepository;
-    this.userMapper = userMapper;
-  }
 
   @Override
   public UserResponseDto create(UserRequestDto request) {

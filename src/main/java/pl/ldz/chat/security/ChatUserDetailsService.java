@@ -1,5 +1,6 @@
 package pl.ldz.chat.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,13 +12,10 @@ import pl.ldz.chat.repository.UserRepository;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChatUserDetailsService implements UserDetailsService {
 
   private final UserRepository userRepository;
-
-  public ChatUserDetailsService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

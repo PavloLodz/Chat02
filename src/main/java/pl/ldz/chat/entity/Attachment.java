@@ -1,9 +1,15 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 @Entity
 @Table(name = "attachments")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Attachment extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -22,20 +28,12 @@ public class Attachment extends AbstractEntity {
   @Column(name = "url", nullable = false)
   private String url;
 
-  public Attachment() {}
-
-  public Message getMessage() { return message; }
-  public void setMessage(Message message) { this.message = message; }
-
-  public String getFileName() { return fileName; }
-  public void setFileName(String fileName) { this.fileName = fileName; }
-
-  public String getFileType() { return fileType; }
-  public void setFileType(String fileType) { this.fileType = fileType; }
-
-  public Long getFileSize() { return fileSize; }
-  public void setFileSize(Long fileSize) { this.fileSize = fileSize; }
-
-  public String getUrl() { return url; }
-  public void setUrl(String url) { this.url = url; }
+  @Override
+  public String toString() {
+    return "Attachment{" +
+      "id=" + getId() +
+      ", fileName='" + fileName + '\'' +
+      ", url='" + url + '\'' +
+      '}';
+  }
 }

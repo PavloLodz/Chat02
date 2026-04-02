@@ -1,18 +1,25 @@
 package pl.ldz.chat.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import pl.ldz.chat.entity.base.AbstractEntity;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "user_sessions")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserSession extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
+  @Builder.Default
   @Column(name = "token", nullable = false, unique = true)
   private String token = UUID.randomUUID().toString();
 
@@ -25,20 +32,11 @@ public class UserSession extends AbstractEntity {
   @Column(name = "expires_at")
   private Instant expiresAt;
 
-  public UserSession() {}
-
-  public User getUser() { return user; }
-  public void setUser(User user) { this.user = user; }
-
-  public String getToken() { return token; }
-  public void setToken(String token) { this.token = token; }
-
-  public String getIpAddress() { return ipAddress; }
-  public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
-
-  public String getUserAgent() { return userAgent; }
-  public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
-
-  public Instant getExpiresAt() { return expiresAt; }
-  public void setExpiresAt(Instant expiresAt) { this.expiresAt = expiresAt; }
+  @Override
+  public String toString() {
+    return "UserSession{" +
+      "id=" + getId() +
+      ", token='" + token + '\'' +
+      '}';
+  }
 }

@@ -13,7 +13,7 @@ This plan is based on the requirements defined in `prompts/requirements.md` and 
 2.  **JPA Auditing Configuration (STEP 1)**:
     -   Create `pl.ldz.chat.config.JpaConfig` with `@EnableJpaAuditing`.
 3.  **`AbstractEntity` (STEP 1)**:
-    -   Location: `pl.ldz.chat.entity.AbstractEntity`
+    -   Location: `pl.ldz.chat.entity.base.AbstractEntity`
     -   Fields: `id` (UUID), `version` (Long), `creationTimestamp` (Instant), `updateTimestamp` (Instant).
     -   Use `@MappedSuperclass`, `@EntityListeners(AuditingEntityListener.class)`, `@CreatedDate`, `@LastModifiedDate`.
     -   Expose only getters for these fields.

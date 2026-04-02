@@ -15,7 +15,7 @@ This plan is based on the requirements defined in `prompts/requirements.md`. The
 
 ## PHASE 2: Base Classes (STEP 1, 4, 7)
 1.  **`AbstractEntity` (STEP 1)**:
-    -   Location: `pl.ldz.chat.entity.AbstractEntity`
+    -   Location: `pl.ldz.chat.entity.base.AbstractEntity`
     -   Fields: `id`, `version`, `creationTimestamp`, `updateTimestamp`.
     -   Refactor existing entities to extend `AbstractEntity` (remove duplicated fields).
 2.  **`AbstractRepository` (STEP 4)**:
