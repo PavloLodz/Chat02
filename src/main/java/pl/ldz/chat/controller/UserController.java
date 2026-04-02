@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
-import pl.ldz.chat.service.UserService;
+import pl.ldz.chat.service.base.CrudService;
 
 import java.util.UUID;
 
@@ -20,9 +20,9 @@ import java.util.UUID;
 @Tag(name = "Users", description = "User management endpoints")
 public class UserController {
 
-  private final UserService userService;
+  private final CrudService<pl.ldz.chat.entity.User, UUID, UserRequestDto, UserResponseDto> userService;
 
-  public UserController(UserService userService) {
+  public UserController(CrudService<pl.ldz.chat.entity.User, UUID, UserRequestDto, UserResponseDto> userService) {
     this.userService = userService;
   }
 
