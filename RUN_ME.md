@@ -16,7 +16,7 @@ mvn clean test
 ## Integration tests only
 Requires Docker (Testcontainers). Tests are located in `src/integration-test/java`.
 ```bash
-mvn clean failsafe:integration-test
+mvn clean integration-test
 ```
 
 ## All tests (Unit + Integration)
