@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
 import pl.ldz.chat.entity.User;
@@ -33,12 +34,16 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    private final UserMapper userMapper = new UserMapper();
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    private UserMapper userMapper;
 
     private UserService userService;
 
     @BeforeEach
     void setUp() {
+        userMapper = new UserMapper(passwordEncoder);
         userService = new UserService(userRepository, userMapper);
     }
 

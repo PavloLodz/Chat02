@@ -1,5 +1,6 @@
 package pl.ldz.chat.mapper;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
@@ -10,6 +11,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
+
+  private final PasswordEncoder passwordEncoder;
+
+  public UserMapper(PasswordEncoder passwordEncoder) {
+    this.passwordEncoder = passwordEncoder;
+  }
 
   public UserResponseDto toResponseDto(User user) {
     return new UserResponseDto(
@@ -30,7 +37,7 @@ public class UserMapper {
     User user = new User();
     user.setUsername(dto.username());
     user.setEmail(dto.email());
-    user.setPasswordHash(dto.passwordHash());
+    user.setPasswordHash(passwordEncoder.encode(dto.passwordHash()));
     user.setDisplayName(dto.displayName());
     user.setAvatarUrl(dto.avatarUrl());
     user.setOnline(dto.online());
@@ -41,7 +48,7 @@ public class UserMapper {
   public void updateEntityFromDto(UserRequestDto dto, User user) {
     if (dto.username() != null) user.setUsername(dto.username());
     if (dto.email() != null) user.setEmail(dto.email());
-    if (dto.passwordHash() != null) user.setPasswordHash(dto.passwordHash());
+    if (dto.passwordHash() != null) user.setPasswordHash(passwordEncoder.encode(dto.passwordHash()));
     if (dto.displayName() != null) user.setDisplayName(dto.displayName());
     if (dto.avatarUrl() != null) user.setAvatarUrl(dto.avatarUrl());
     if (dto.role() != null) user.setRole(dto.role());

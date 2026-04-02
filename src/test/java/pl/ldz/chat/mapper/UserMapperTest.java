@@ -1,6 +1,9 @@
 package pl.ldz.chat.mapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.ldz.chat.dto.UserRequestDto;
 import pl.ldz.chat.dto.UserResponseDto;
 import pl.ldz.chat.entity.User;
@@ -9,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest {
 
-  private final UserMapper userMapper = new UserMapper();
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  private final UserMapper userMapper = new UserMapper(passwordEncoder);
 
   @Test
   void shouldMapToEntity() {
@@ -27,7 +31,7 @@ class UserMapperTest {
 
     assertEquals(dto.username(), user.getUsername());
     assertEquals(dto.email(), user.getEmail());
-    assertEquals(dto.passwordHash(), user.getPasswordHash());
+    assertTrue(passwordEncoder.matches("password", user.getPasswordHash()));
     assertEquals(dto.displayName(), user.getDisplayName());
     assertEquals(dto.avatarUrl(), user.getAvatarUrl());
     assertTrue(user.isOnline());

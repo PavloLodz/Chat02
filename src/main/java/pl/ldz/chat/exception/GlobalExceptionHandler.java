@@ -1,6 +1,9 @@
 package pl.ldz.chat.exception;
 
 import jakarta.persistence.OptimisticLockException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -45,6 +48,26 @@ public class GlobalExceptionHandler {
     );
     problem.setTitle("Validation Error");
     problem.setProperty("errors", errors);
+    return problem;
+  }
+
+  @ExceptionHandler({SignatureException.class, MalformedJwtException.class})
+  public ProblemDetail handleInvalidToken() {
+    ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+        HttpStatus.UNAUTHORIZED,
+        "Invalid JWT token"
+    );
+    problem.setTitle("Unauthorized");
+    return problem;
+  }
+
+  @ExceptionHandler(ExpiredJwtException.class)
+  public ProblemDetail handleExpiredToken() {
+    ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+        HttpStatus.UNAUTHORIZED,
+        "JWT token has expired"
+    );
+    problem.setTitle("Unauthorized");
     return problem;
   }
 }
