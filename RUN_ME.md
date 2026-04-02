@@ -10,18 +10,18 @@ mvn clean package -DskipTests
 ## Unit tests only
 Fast, no Docker required. Tests are located in `src/test/java`.
 ```bash
-mvn test
+mvn clean test
 ```
 
 ## Integration tests only
 Requires Docker (Testcontainers). Tests are located in `src/integration-test/java`.
 ```bash
-mvn failsafe:integration-test
+mvn clean failsafe:integration-test
 ```
 
 ## All tests (Unit + Integration)
 Requires Docker (Testcontainers).
 ```bash
-mvn verify
+mvn clean verify
 ```
 
