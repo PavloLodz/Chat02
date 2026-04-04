@@ -36,8 +36,12 @@ public final class AuthHelper {
     }
 
     // Convenience wrappers for the seeded users
-    public static String adminToken(RequestSpecification spec)   { return loginAs(spec, "admin",   "ap"); }
-    public static String userToken(RequestSpecification spec)    { return loginAs(spec, "user",    "up"); }
-    public static String viewerToken(RequestSpecification spec)  { return loginAs(spec, "viewer",  "vp"); }
-    public static String auditorToken(RequestSpecification spec) { return loginAs(spec, "auditor", "ap"); }
+    public static String adminToken(RequestSpecification spec)   {
+        return loginAs(spec, "admin",   "ap"); }
+    public static String userToken(RequestSpecification spec)    {
+        return loginAs(spec, "user",    "up"); }
+    public static String viewerToken(RequestSpecification spec)  {
+        return loginAs(spec, "viewer",  "vp"); }
+    public static String auditorToken(RequestSpecification spec) {
+        return loginAs(spec, "auditor", "ap"); }
 }

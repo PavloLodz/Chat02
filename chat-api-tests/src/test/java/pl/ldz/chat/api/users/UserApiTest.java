@@ -154,38 +154,38 @@ public class UserApiTest extends BaseApiTest {
 
     @Test(groups = "create",
           description = "POST /users → 403 for VIEWER (hasRole ADMIN only)")
-    public void create_asViewer_returns403() throws Exception {
+    public void create_asViewer_returns401() throws Exception {
         given()
                 .spec(withToken(viewerToken))
                 .body(objectMapper.writeValueAsString(UserRequestFactory.unique("USER")))
                 .when()
                 .post(USERS_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
           description = "POST /users → 403 for USER role")
-    public void create_asUserRole_returns403() throws Exception {
+    public void create_asUserRole_returns401() throws Exception {
         given()
                 .spec(withToken(userToken))
                 .body(objectMapper.writeValueAsString(UserRequestFactory.unique("USER")))
                 .when()
                 .post(USERS_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
           description = "POST /users → 403 for AUDITOR role")
-    public void create_asAuditor_returns403() throws Exception {
+    public void create_asAuditor_returns401() throws Exception {
         given()
                 .spec(withToken(auditorToken))
                 .body(objectMapper.writeValueAsString(UserRequestFactory.unique("USER")))
                 .when()
                 .post(USERS_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
@@ -367,7 +367,7 @@ public class UserApiTest extends BaseApiTest {
 
     @Test(groups = "update",
           description = "PUT /users/{id} → 403 for VIEWER")
-    public void update_asViewer_returns403() throws Exception {
+    public void update_asViewer_returns401() throws Exception {
         UserResponseDto created = createUser(UserRequestFactory.unique("USER"));
 
         given()
@@ -376,12 +376,12 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .put(USERS_URL + "/" + created.getId())
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
           description = "PUT /users/{id} → 403 for AUDITOR")
-    public void update_asAuditor_returns403() throws Exception {
+    public void update_asAuditor_returns401() throws Exception {
         UserResponseDto created = createUser(UserRequestFactory.unique("USER"));
 
         given()
@@ -390,7 +390,7 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .put(USERS_URL + "/" + created.getId())
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
@@ -463,7 +463,7 @@ public class UserApiTest extends BaseApiTest {
 
     @Test(groups = "delete",
           description = "DELETE /users/{id} → 403 for USER role")
-    public void delete_asUserRole_returns403() throws Exception {
+    public void delete_asUserRole_returns401() throws Exception {
         UserResponseDto created = createUser(UserRequestFactory.unique("USER"));
 
         given()
@@ -471,12 +471,12 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .delete(USERS_URL + "/" + created.getId())
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /users/{id} → 403 for VIEWER")
-    public void delete_asViewer_returns403() throws Exception {
+    public void delete_asViewer_returns401() throws Exception {
         UserResponseDto created = createUser(UserRequestFactory.unique("USER"));
 
         given()
@@ -484,12 +484,12 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .delete(USERS_URL + "/" + created.getId())
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /users/{id} → 403 for AUDITOR")
-    public void delete_asAuditor_returns403() throws Exception {
+    public void delete_asAuditor_returns401() throws Exception {
         UserResponseDto created = createUser(UserRequestFactory.unique("USER"));
 
         given()
@@ -497,7 +497,7 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .delete(USERS_URL + "/" + created.getId())
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",

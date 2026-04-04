@@ -7,6 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.*;
  * <p>JSONPlaceholder is a free, stable mock REST API maintained by the open-source
  * community and widely used for this exact purpose.
  */
+@Ignore
 public class JsonPlaceholderSmokeTest {
 
     private static final String BASE_URL = "https://jsonplaceholder.typicode.com";

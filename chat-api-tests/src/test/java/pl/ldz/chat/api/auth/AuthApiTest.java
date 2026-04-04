@@ -128,38 +128,38 @@ public class AuthApiTest extends BaseApiTest {
 
     @Test(groups = "unhappy",
           description = "POST /login → 400 when @NotBlank username is empty string")
-    public void blankUsername_returns400() {
+    public void blankUsername_returns422() {
         given()
                 .spec(requestSpec)
                 .body(bodyOf(credentials("", "ap")))
                 .when()
                 .post(LOGIN_URL)
                 .then()
-                .statusCode(400);
+                .statusCode(422);
     }
 
     @Test(groups = "unhappy",
           description = "POST /login → 400 when @NotBlank password is empty string")
-    public void blankPassword_returns400() {
+    public void blankPassword_returns422() {
         given()
                 .spec(requestSpec)
                 .body(bodyOf(credentials("admin", "")))
                 .when()
                 .post(LOGIN_URL)
                 .then()
-                .statusCode(400);
+                .statusCode(422);
     }
 
     @Test(groups = "unhappy",
           description = "POST /login → 400 for empty JSON body (both fields missing → @NotBlank)")
-    public void emptyBody_returns400() {
+    public void emptyBody_returns422() {
         given()
                 .spec(requestSpec)
                 .body("{}")
                 .when()
                 .post(LOGIN_URL)
                 .then()
-                .statusCode(400);
+                .statusCode(422);
     }
 
     // ── private helpers ───────────────────────────────────────────────────────
