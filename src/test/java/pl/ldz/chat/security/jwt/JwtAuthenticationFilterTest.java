@@ -38,7 +38,7 @@ class JwtAuthenticationFilterTest {
   void setUp() {
     jwtService = new JwtService();
     ReflectionTestUtils.setField(jwtService, "secretKey", "secret-key-must-be-at-least-32-characters-long-and-secure");
-    ReflectionTestUtils.setField(jwtService, "jwtExpiration", 3600000L);
+    ReflectionTestUtils.setField(jwtService, "jwtExpiration", 3_600_000L);
     
     userDetailsService = mock(UserDetailsService.class);
     jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtService, userDetailsService);
