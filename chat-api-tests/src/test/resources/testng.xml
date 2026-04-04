@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Chat02 API Test Suite" verbose="2" parallel="none">
+
+  <!--
+    Tests run sequentially.
+    Auth must complete before Users (tokens are obtained per-test via @BeforeMethod).
+  -->
+
+  <!--
+    Smoke test against https://jsonplaceholder.typicode.com.
+    Requires no local server – verifies the stack (Lombok, TestNG, REST Assured) compiles and runs.
+  -->
+  <test name="Smoke – JSONPlaceholder">
+    <classes>
+      <class name="pl.ldz.chat.smoke.JsonPlaceholderSmokeTest"/>
+    </classes>
+  </test>
+
+  <test name="Auth API">
+    <classes>
+      <class name="pl.ldz.chat.api.auth.AuthApiTest"/>
+    </classes>
+  </test>
+
+  <test name="Users API">
+    <classes>
+      <class name="pl.ldz.chat.api.users.UserApiTest"/>
+    </classes>
+  </test>
+
+</suite>
