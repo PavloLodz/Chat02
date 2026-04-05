@@ -28,7 +28,6 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 - `pl.ldz.chat.repository` — persistence access
 - `pl.ldz.chat.entity` — JPA entities
 - `pl.ldz.chat.dto` — API request/response models
-- `pl.ldz.chat.mapper` — MapStruct or manual mappers for DTO/Entity conversion
 - `pl.ldz.chat.config` — application configuration
 - `pl.ldz.chat.security` — authentication and authorization concerns
 - `pl.ldz.chat.exception` — custom exceptions and global error handling
@@ -107,13 +106,11 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 
 ---
 
-## Mapping Entities for REST API
-
-- Use mappers (like MapStruct or manual classes) for DTO/Entity conversion.
-- Only the root entity in a response should include collection properties.
-- Nested DTOs must not include collection-type fields to avoid deep recursion and large payloads.
-- Avoid recursive or multi-level nesting of collections.
-- Avoid N+1 issues during fetching collection type fields by using join fetches or entity graphs where appropriate.
+## Mapping entities for rest API
+    1. Only the root entity includes collection properties. 
+    2. Nested DTOs must not include collection-type fields. 
+    3. Avoid recursive or multi-level nesting of collections.
+    4. Avoid N+1 during fetching collection type fields
 
 ---
 
@@ -122,7 +119,7 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 - Validate input as early as possible.
 - Use bean validation for request DTOs where appropriate.
 - Throw domain-specific or application-specific exceptions when needed.
-- Map exceptions to consistent API error responses using a `GlobalExceptionHandler`.
+- Map exceptions to consistent API error responses.
 - Keep error messages clear, actionable, and safe for clients.
 
 ---
@@ -140,7 +137,7 @@ Use the following package layout under `pl.ldz.chat` when the codebase grows:
 
 - Suffix of integration tests is `IT`.
 - Put integration tests in `src/integration-test/java`.
-- Use abstract classes for shared test setup (e.g., `AbstractControllerIT`, `AbstractServiceIT`).
+- Use abstract classes for shared test setup.
 - Use integration tests for Spring wiring, persistence, and end-to-end flows.
 - Use real application context only where it adds value.
 - Keep test setup understandable and maintainable.
@@ -308,7 +305,7 @@ Integration tests that require a real database should use a dedicated test datas
 
 ### Security roles
 
-Use the following roles (defined in `pl.ldz.chat.security.enums.UserRoles`):
+Use the following roles consistently when implementing authorization:
 
 - `VIEWER` — limited read-only access
 - `USER` — standard application access

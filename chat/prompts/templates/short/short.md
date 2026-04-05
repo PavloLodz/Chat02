@@ -6,11 +6,6 @@ Improve and rewrite the draft requirements to a new file called /prompts/require
 
 ==============================================
 
-Analyze the file `.junie/guidelines.md` and inspect the project.
-It is necessary to add lombok to the project.
 
-Write the requirements to a new file called `prompts/requirements.md`
-
-==============================================================
 Analyze the `prompts/requirements.md` file and create a detailed plan for the improvements of this project.
 Write the plan to `prompts/plan.md` file.
