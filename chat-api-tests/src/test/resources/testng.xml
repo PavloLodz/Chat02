@@ -28,4 +28,10 @@
     </classes>
   </test>
 
+  <test name="Attachments API">
+    <classes>
+      <class name="pl.ldz.chat.api.attachments.AttachmentApiTest"/>
+    </classes>
+  </test>
+
 </suite>
