@@ -3,13 +3,14 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.ldz.chat.entity.base.AbstractEntity;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "attachments")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Attachment extends AbstractEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -27,6 +28,19 @@ public class Attachment extends AbstractEntity {
 
   @Column(name = "url", nullable = false)
   private String url;
+
+  @Builder(builderMethodName = "attachmentBuilder")
+  public Attachment(UUID id, Long version, java.time.Instant creationTimestamp, java.time.Instant updateTimestamp, Message message, String fileName, String fileType, Long fileSize, String url) {
+    this.setId(id);
+    this.setVersion(version);
+    this.setCreationTimestamp(creationTimestamp);
+    this.setUpdateTimestamp(updateTimestamp);
+    this.message = message;
+    this.fileName = fileName;
+    this.fileType = fileType;
+    this.fileSize = fileSize;
+    this.url = url;
+  }
 
   @Override
   public String toString() {

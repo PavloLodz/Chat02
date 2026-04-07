@@ -5,14 +5,14 @@ services:
     container_name: chat-postgres
     environment:
       POSTGRES_DB: chat
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chat
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d chat"]
+      test: ["CMD-SHELL", "pg_isready -U chat -d chat"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -26,9 +26,9 @@ services:
     container_name: chat-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/chat
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_DATASOURCE_USERNAME: chat
+      SPRING_DATASOURCE_PASSWORD: chat
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       SPRING_JPA_OPEN_IN_VIEW: false
     ports:
       - "8080:8080"
