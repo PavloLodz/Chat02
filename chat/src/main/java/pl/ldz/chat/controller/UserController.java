@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class UserController {
   @PreAuthorize("hasAnyRole('VIEWER', 'USER', 'ADMIN', 'AUDITOR')")
   @Operation(summary = "Get all users (paginated)")
   @ApiResponse(responseCode = "200", description = "Page of users")
-  public Page<UserResponseDto> getAll(Pageable pageable) {
+  public Page<UserResponseDto> getAll(@ParameterObject Pageable pageable) {
     return userService.getAll(pageable);
   }
 

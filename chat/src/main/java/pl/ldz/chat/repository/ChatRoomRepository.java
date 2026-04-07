@@ -4,20 +4,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import pl.ldz.chat.entity.Attachment;
+import pl.ldz.chat.entity.ChatRoom;
 import pl.ldz.chat.repository.base.AbstractRepository;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface AttachmentRepository extends AbstractRepository<Attachment, UUID> {
+public interface ChatRoomRepository extends AbstractRepository<ChatRoom, UUID> {
 
   @Override
-  @EntityGraph(attributePaths = {"message"})
-  Optional<Attachment> findById(UUID id);
+  @EntityGraph(attributePaths = {"owner"})
+  Optional<ChatRoom> findById(UUID id);
 
   @Override
-  @EntityGraph(attributePaths = {"message"})
-  Page<Attachment> findAll(Pageable pageable);
+  @EntityGraph(attributePaths = {"owner"})
+  Page<ChatRoom> findAll(Pageable pageable);
 }

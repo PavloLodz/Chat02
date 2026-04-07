@@ -87,8 +87,8 @@ class AttachmentServiceIT extends AbstractServiceIT {
     assertThat(found.getId()).isEqualTo(created.getId());
     assertThat(found.getFileName()).isEqualTo(created.getFileName());
     assertThat(found.getMessageId()).isEqualTo(created.getMessageId());
-    assertThat(found.getCreationTimestamp()).isNotNull();
-    assertThat(found.getUpdateTimestamp()).isNotNull();
+    assertThat(found.getCreatedAt()).isNotNull();
+    assertThat(found.getUpdatedAt()).isNotNull();
   }
 
   @Test

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class AttachmentController {
   @PreAuthorize("hasAnyRole('VIEWER', 'USER', 'ADMIN', 'AUDITOR')")
   @Operation(summary = "Get all attachments (paginated)")
   @ApiResponse(responseCode = "200", description = "Page of attachments")
-  public Page<AttachmentResponseDto> getAll(Pageable pageable) {
+  public Page<AttachmentResponseDto> getAll(@ParameterObject Pageable pageable) {
     return attachmentService.getAll(pageable);
   }
 

@@ -1,19 +1,16 @@
 
+
 Analyze the file `prompts/requirements-draft.md`  
 and inspect the project.
 Improve and rewrite the draft requirements to a new file called `prompts/requirements.md`.
 
-Warning!!! Sometimes it doesn't work with variables!!! It steel keeps User entity and users url!!!
-I had to do it manually.
-
-========================================
+Now it worked correctly and generated a correct entity.
 
 ----
 
 Analyze the `prompts/requirements.md` files and create a detailed plan for the improvements of this project.
 Write the plan to `prompts/plan.md` file.
 
-Warning!!! Sometimes it doesn't work with variables!!! It needs to be checked. 
 ---
 
 Create a detailed enumerated task list according to the suggested enhancements plan in

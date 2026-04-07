@@ -1,5 +1,7 @@
 # Chat02 – REST API Tests
 
+file:///home/left10/My/Git/Java/Chat02/chat-api-tests/target/surefire-reports/index.html#update_asAdmin_returns200WithUpdatedFields
+
 Black-box API tests for the Chat02 Spring Boot application,
 built with **REST Assured 5** + **TestNG 7** + **Jackson** + **AssertJ**.
 

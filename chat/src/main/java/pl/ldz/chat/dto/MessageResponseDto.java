@@ -14,16 +14,17 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttachmentResponseDto {
+public class MessageResponseDto {
 
   private UUID id;
   private Instant createdAt;
   private Instant updatedAt;
   private Long version;
 
-  private UUID messageId;
-  private String fileName;
-  private String fileType;
-  private Long fileSize;
-  private String url;
+  private UserResponseDto sender;
+  private UUID chatRoomId;
+  private UUID personalChatId;
+  private String content;
+  private boolean edited;
+  private boolean deleted;
 }

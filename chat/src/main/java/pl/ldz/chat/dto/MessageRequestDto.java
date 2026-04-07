@@ -1,8 +1,8 @@
 package pl.ldz.chat.dto;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,21 +16,16 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttachmentRequestDto {
+public class MessageRequestDto {
 
   @NotNull
-  private UUID messageId;
+  private UUID senderId;
+
+  private UUID chatRoomId;
+
+  private UUID personalChatId;
 
   @NotBlank
-  private String fileName;
-
-  @NotBlank
-  private String fileType;
-
-  @NotNull
-  @Min(0)
-  private Long fileSize;
-
-  @NotBlank
-  private String url;
+  @Size(max = 2000)
+  private String content;
 }

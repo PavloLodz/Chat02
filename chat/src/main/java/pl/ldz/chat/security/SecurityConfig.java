@@ -69,6 +69,13 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasAnyRole("USER", "ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole("VIEWER", "USER", "ADMIN", "AUDITOR")
+            .requestMatchers(HttpMethod.POST, "/api/v1/chat-rooms").hasAnyRole("USER", "ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/v1/chat-rooms/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/v1/chat-rooms/**").hasAnyRole("USER", "ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/v1/chat-rooms/**").hasAnyRole("VIEWER", "USER", "ADMIN", "AUDITOR")
+            .requestMatchers("/api/v1/personal-chats/**").authenticated()
+            .requestMatchers("/api/v1/messages/**").authenticated()
+            .requestMatchers("/api/v1/attachments/**").authenticated()
             .anyRequest().authenticated()
         )
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
