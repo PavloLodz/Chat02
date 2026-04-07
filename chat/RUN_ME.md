@@ -1,4 +1,4 @@
-
+ 
 # Run locally (requires a running PostgreSQL on localhost:5432)
 
 ```bash
