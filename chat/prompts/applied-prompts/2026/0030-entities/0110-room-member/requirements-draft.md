@@ -6,7 +6,7 @@ This document defines the implementation steps for adding full CRUD functionalit
 
 ### Identity
 - `$ID_TYPE`                  = UUID
-- `$ENTITY_NAME`              = User
+- `$ENTITY_NAME`              = RoomMember
 
 ### Derived class names
 - `$DTO`                      = ${ENTITY_NAME}Dto
@@ -28,14 +28,8 @@ This document defines the implementation steps for adding full CRUD functionalit
 - `$SECURITY_PACKAGE`         = ${BASE_PACKAGE}.security
 - `$EXCEPTION_PACKAGE`        = ${BASE_PACKAGE}.exception
 
-### DB TODO: PostgreSQLContainer
-- `$DB_DRIVER`                = org.postgresql.Driver
-- `$DB_URL`                   = jdbc:postgresql://localhost:5432/testdb
-- `$DB_USERNAME`              = test
-- `$DB_PASSWORD`              = test
-   
 ### URL
-- `$API_PATH`                 = /api/v1/users
+- `$API_PATH`                 = /api/v1/room-members
 
 ---
 
@@ -203,6 +197,10 @@ import java.util.UUID;
 public interface ${REPOSITORY} extends AbstractRepository<${ENTITY_NAME}, ${ID_TYPE}> {
   // Add domain specific queries if needed, e.g.,
   // Optional<${ENTITY_NAME}> findByIdAndDeletedFalse(${ID_TYPE} id);
+
+@Query("SELECT i FROM Item i WHERE i.room_id = :roomUUID")
+List<${ENTITY_NAME}> findItemsByRoomId(@Param("roomUUID") String roomUUID);
+    
 }
 ```
 
@@ -248,7 +246,8 @@ public interface Service<T, ID, REQ, RES> {
 ---
 
 ## STEP 8 — Create Service Implementation
-
+We need to create a service implementation that extends the base service interface
+and add List<${ENTITY_NAME}ResponseDto>findItemsByRoomId using the same metod in the repository.
 Create `${SERVICE}` in package `${SERVICE_PACKAGE}`:
 
 - Implement CRUD methods using `${REPOSITORY}` and `${MAPPER}`.
