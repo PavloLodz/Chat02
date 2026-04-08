@@ -28,9 +28,23 @@
     </classes>
   </test>
 
+
   <test name="Attachments API">
     <classes>
       <class name="pl.ldz.chat.api.attachments.AttachmentApiTest"/>
+    </classes>
+  </test>
+
+
+  <test name="Chat Rooms API">
+    <classes>
+      <class name="pl.ldz.chat.api.chatrooms.ChatRoomApiTest"/>
+    </classes>
+  </test>
+
+  <test name="Personal Chats API">
+    <classes>
+      <class name="pl.ldz.chat.api.personalchats.PersonalChatApiTest"/>
     </classes>
   </test>
 
