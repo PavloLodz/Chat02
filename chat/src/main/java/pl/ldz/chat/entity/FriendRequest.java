@@ -21,6 +21,7 @@ public class FriendRequest extends AbstractEntity {
   @JoinColumn(name = "receiver_id", nullable = false)
   private User receiver;
 
+  // TODO: PENDING, ACCEPTED, DECLINED
   @Builder.Default
   @Column(name = "status", nullable = false, length = 20)
   private String status = "PENDING";

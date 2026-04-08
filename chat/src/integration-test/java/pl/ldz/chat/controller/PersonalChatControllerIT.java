@@ -21,6 +21,9 @@ class PersonalChatControllerIT extends AbstractControllerIT {
   private AttachmentRepository attachmentRepository;
 
   @Autowired
+  private FriendRequestRepository friendRequestRepository;
+
+  @Autowired
   private MessageRepository messageRepository;
 
   @Autowired
@@ -32,13 +35,18 @@ class PersonalChatControllerIT extends AbstractControllerIT {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private RoomMemberRepository roomMemberRepository;
+
   private User user1;
   private User user2;
 
   @BeforeEach
   void setUp() {
     attachmentRepository.deleteAll();
+    friendRequestRepository.deleteAll();
     messageRepository.deleteAll();
+    roomMemberRepository.deleteAll();
     chatRoomRepository.deleteAll();
     personalChatRepository.deleteAll();
     userRepository.deleteAll();

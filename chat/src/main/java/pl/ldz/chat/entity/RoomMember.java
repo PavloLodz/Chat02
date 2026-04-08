@@ -21,6 +21,7 @@ public class RoomMember extends AbstractEntity {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
+  // TODO: OWNER, MANAGER, MEMBER
   @Builder.Default
   @Column(name = "role", nullable = false, length = 20)
   private String role = "MEMBER";
