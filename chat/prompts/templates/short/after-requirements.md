@@ -2,6 +2,7 @@ Analyze the `prompts/requirements.md` files and create a detailed plan for the i
 Write the plan to `prompts/plan.md` file.
 
 ==========================================================
+
 Analyze the `prompts/requirements.md`, `prompts/plan-draft.md` files and create a detailed plan for the improvements of this project.
 Write the plan to `prompts/plan.md` file.
 ---
