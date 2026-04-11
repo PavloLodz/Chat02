@@ -1,10 +1,20 @@
 
-Analyze the file `prompts/requirements-draft.md`  
+Analyze the file `prompts/requirements-draft.md`for front-end requirements  
 and inspect the project.
+## The application shall provide a typical web chat layout with:
+top menu
+message area in the center
+message input at the bottom
+rooms and contacts list on the side
+## Side Layout
+Rooms and contacts are displayed on the right.
+After entering a room, the room list becomes compacted in accordion style.
+Room members are shown on the right side with their online statuses.
+
+The frontend project should suport running unit tests and needs to put in this project.
+
 Improve and rewrite the draft requirements to a new file called `prompts/requirements.md`.
 
-Warning!!! Sometimes it doesn't work with variables!!! It steel keeps User entity and users url!!!
-I had to do it manually.
 
 ========================================
 
@@ -13,7 +23,9 @@ I had to do it manually.
 Analyze the `prompts/requirements.md` files and create a detailed plan for the improvements of this project.
 Write the plan to `prompts/plan.md` file.
 
-Warning!!! Sometimes it doesn't work with variables!!! It needs to be checked. 
+In this case plan is too short. After second run it started to generate java code.... , run tests ....
+As a result i had filled tasks.md and severa java generated classes. 
+ 
 ---
 
 Create a detailed enumerated task list according to the suggested enhancements plan in
