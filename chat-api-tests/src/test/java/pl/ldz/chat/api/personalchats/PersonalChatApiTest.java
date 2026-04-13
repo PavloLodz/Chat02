@@ -142,20 +142,20 @@ public class PersonalChatApiTest extends BaseApiTest {
 
     @Test(groups = "list",
           description = "GET /personal-chats → 403 for VIEWER")
-    public void getAll_asViewer_returns403() {
-        given().spec(withToken(viewerToken)).when().get(BASE_URL).then().statusCode(403);
+    public void getAll_asViewer_returns401() {
+        given().spec(withToken(viewerToken)).when().get(BASE_URL).then().statusCode(401);
     }
 
     @Test(groups = "list",
           description = "GET /personal-chats → 403 for USER")
-    public void getAll_asUser_returns403() {
-        given().spec(withToken(userToken)).when().get(BASE_URL).then().statusCode(403);
+    public void getAll_asUser_returns401() {
+        given().spec(withToken(userToken)).when().get(BASE_URL).then().statusCode(401);
     }
 
     @Test(groups = "list",
           description = "GET /personal-chats → 403 for AUDITOR")
-    public void getAll_asAuditor_returns403() {
-        given().spec(withToken(auditorToken)).when().get(BASE_URL).then().statusCode(403);
+    public void getAll_asAuditor_returns401() {
+        given().spec(withToken(auditorToken)).when().get(BASE_URL).then().statusCode(401);
     }
 
     @Test(groups = "list",
@@ -217,35 +217,35 @@ public class PersonalChatApiTest extends BaseApiTest {
 
     @Test(groups = "read",
           description = "GET /personal-chats/{id} → 403 for VIEWER")
-    public void getById_asViewer_returns403() {
+    public void getById_asViewer_returns401() {
         given()
                 .spec(withToken(viewerToken))
                 .when()
                 .get(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "read",
           description = "GET /personal-chats/{id} → 403 for USER")
-    public void getById_asUser_returns403() {
+    public void getById_asUser_returns401() {
         given()
                 .spec(withToken(userToken))
                 .when()
                 .get(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "read",
           description = "GET /personal-chats/{id} → 403 for AUDITOR")
-    public void getById_asAuditor_returns403() {
+    public void getById_asAuditor_returns401() {
         given()
                 .spec(withToken(auditorToken))
                 .when()
                 .get(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "read",
@@ -317,7 +317,7 @@ public class PersonalChatApiTest extends BaseApiTest {
 
     @Test(groups = "create",
           description = "POST /personal-chats → 403 for VIEWER")
-    public void create_asViewer_returns403() {
+    public void create_asViewer_returns401() {
         UUID u1 = createUser("USER");
         UUID u2 = createUser("USER");
 
@@ -327,12 +327,12 @@ public class PersonalChatApiTest extends BaseApiTest {
                 .when()
                 .post(BASE_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
           description = "POST /personal-chats → 403 for AUDITOR")
-    public void create_asAuditor_returns403() {
+    public void create_asAuditor_returns401() {
         UUID u1 = createUser("USER");
         UUID u2 = createUser("USER");
 
@@ -342,7 +342,7 @@ public class PersonalChatApiTest extends BaseApiTest {
                 .when()
                 .post(BASE_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
@@ -439,7 +439,7 @@ public class PersonalChatApiTest extends BaseApiTest {
 
     @Test(groups = "update",
           description = "PUT /personal-chats/{id} → 403 for USER")
-    public void update_asUser_returns403() {
+    public void update_asUser_returns401() {
         UUID u1 = createUser("USER");
         UUID u2 = createUser("USER");
         String body = personalChatPayload(u1, u2);
@@ -450,12 +450,12 @@ public class PersonalChatApiTest extends BaseApiTest {
                 .when()
                 .put(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
           description = "PUT /personal-chats/{id} → 403 for VIEWER")
-    public void update_asViewer_returns403() {
+    public void update_asViewer_returns401() {
         String body = personalChatPayload(participant1Id, participant2Id);
 
         given()
@@ -464,12 +464,12 @@ public class PersonalChatApiTest extends BaseApiTest {
                 .when()
                 .put(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
           description = "PUT /personal-chats/{id} → 403 for AUDITOR")
-    public void update_asAuditor_returns403() {
+    public void update_asAuditor_returns401() {
         String body = personalChatPayload(participant1Id, participant2Id);
 
         given()
@@ -478,7 +478,7 @@ public class PersonalChatApiTest extends BaseApiTest {
                 .when()
                 .put(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
@@ -538,35 +538,35 @@ public class PersonalChatApiTest extends BaseApiTest {
 
     @Test(groups = "delete",
           description = "DELETE /personal-chats/{id} → 403 for USER")
-    public void delete_asUser_returns403() {
+    public void delete_asUser_returns401() {
         given()
                 .spec(withToken(userToken))
                 .when()
                 .delete(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /personal-chats/{id} → 403 for VIEWER")
-    public void delete_asViewer_returns403() {
+    public void delete_asViewer_returns401() {
         given()
                 .spec(withToken(viewerToken))
                 .when()
                 .delete(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /personal-chats/{id} → 403 for AUDITOR")
-    public void delete_asAuditor_returns403() {
+    public void delete_asAuditor_returns401() {
         given()
                 .spec(withToken(auditorToken))
                 .when()
                 .delete(BASE_URL + "/" + seedChatId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
