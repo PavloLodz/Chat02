@@ -37,5 +37,45 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  # --- empty profile: app + db with only users seeded, no chat rooms ---
+
+  postgres-empty:
+    image: postgres:17-alpine
+    container_name: chat-postgres-empty
+    environment:
+      POSTGRES_DB: chat
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chat
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chat -d chat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    profiles:
+      - empty-db
+
+  app-empty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat-app-empty
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-empty:5432/chat
+      SPRING_DATASOURCE_USERNAME: chat
+      SPRING_DATASOURCE_PASSWORD: chat
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_JPA_OPEN_IN_VIEW: false
+      APP_SEED_CHAT-ROOMS: "false"
+    ports:
+      - "8081:8080"
+    depends_on:
+      postgres-empty:
+        condition: service_healthy
+    profiles:
+      - empty-db
+
 volumes:
   postgres_data:

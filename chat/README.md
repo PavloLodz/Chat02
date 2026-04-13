@@ -6,6 +6,12 @@ Build and start the app + PostgreSQL together:
 ```
 docker compose up --build
 ```
+For rest assured test mode:
+```
+docker compose --profile empty-db up  --build
+```
+docker compose --profile empty-db down
+docker compose -p chat down
 
 The app will be available at http://localhost:8080
 Swagger UI: http://localhost:8080/swagger-ui/index.html
