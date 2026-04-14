@@ -14,8 +14,11 @@ import java.util.UUID;
 public interface ChatRoomRepository extends AbstractRepository<ChatRoom, UUID> {
 
   @Override
-  @EntityGraph(attributePaths = {"owner"})
+
   Optional<ChatRoom> findById(UUID id);
+
+  @EntityGraph(attributePaths = {"owner"})
+  Optional<ChatRoom> findWithOwnerById(UUID id);
 
   @Override
   @EntityGraph(attributePaths = {"owner"})

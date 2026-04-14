@@ -1,6 +1,7 @@
 package pl.ldz.chat.entity.base;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,6 +19,7 @@ public abstract class AbstractEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  // @Setter(AccessLevel.NONE) TODO: Use it in future!
   private UUID id;
 
   @Version
