@@ -6,7 +6,13 @@ import pl.ldz.chat.entity.base.AbstractEntity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(
+    name = "users",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uq_users_username", columnNames = "username"),
+        @UniqueConstraint(name = "uq_users_email", columnNames = "email")
+    }
+)
 @Getter
 @Setter
 @NoArgsConstructor

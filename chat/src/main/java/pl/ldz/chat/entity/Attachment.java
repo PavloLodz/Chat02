@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Attachment extends AbstractEntity {
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "message_id", nullable = false)
   private Message message;
 

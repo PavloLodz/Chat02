@@ -13,4 +13,5 @@ public interface UserRepository extends AbstractRepository<User, UUID> {
   Optional<User> findByUsername(String username);
 
   boolean existsByUsername(String username);
+  boolean existsByEmail(String email);
 }
