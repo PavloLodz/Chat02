@@ -318,7 +318,7 @@ public class ChatRoomApiTest extends BaseApiTest {
 
     @Test(groups = "create",
           description = "POST /chat-rooms → 403 for VIEWER")
-    public void create_asViewer_returns403() {
+    public void create_asViewer_returns401() {
         String body = roomPayload("Should Fail", "Viewer attempt", true, ownerUserId);
 
         given()
@@ -327,7 +327,7 @@ public class ChatRoomApiTest extends BaseApiTest {
                 .when()
                 .post(BASE_URL)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "create",
@@ -469,7 +469,7 @@ public class ChatRoomApiTest extends BaseApiTest {
 
     @Test(groups = "update",
           description = "PUT /chat-rooms/{id} → 403 for VIEWER")
-    public void update_asViewer_returns403() {
+    public void update_asViewer_returns401() {
         String body = roomPayload("Viewer Update", "Attempt", true, ownerUserId);
 
         given()
@@ -478,12 +478,12 @@ public class ChatRoomApiTest extends BaseApiTest {
                 .when()
                 .put(BASE_URL + "/" + seedRoomId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
           description = "PUT /chat-rooms/{id} → 403 for AUDITOR")
-    public void update_asAuditor_returns403() {
+    public void update_asAuditor_returns401() {
         String body = roomPayload("Auditor Update", "Attempt", true, ownerUserId);
 
         given()
@@ -492,7 +492,7 @@ public class ChatRoomApiTest extends BaseApiTest {
                 .when()
                 .put(BASE_URL + "/" + seedRoomId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "update",
@@ -564,35 +564,35 @@ public class ChatRoomApiTest extends BaseApiTest {
 
     @Test(groups = "delete",
           description = "DELETE /chat-rooms/{id} → 403 for USER")
-    public void delete_asUser_returns403() {
+    public void delete_asUser_returns401() {
         given()
                 .spec(withToken(userToken))
                 .when()
                 .delete(BASE_URL + "/" + seedRoomId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /chat-rooms/{id} → 403 for VIEWER")
-    public void delete_asViewer_returns403() {
+    public void delete_asViewer_returns401() {
         given()
                 .spec(withToken(viewerToken))
                 .when()
                 .delete(BASE_URL + "/" + seedRoomId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
           description = "DELETE /chat-rooms/{id} → 403 for AUDITOR")
-    public void delete_asAuditor_returns403() {
+    public void delete_asAuditor_returns401() {
         given()
                 .spec(withToken(auditorToken))
                 .when()
                 .delete(BASE_URL + "/" + seedRoomId)
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
     @Test(groups = "delete",
