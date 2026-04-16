@@ -1,4 +1,4 @@
-# Chat02 – REST API Tests
+# Chat – REST API Tests
 
 
 Black-box API tests for the Chat Spring Boot application,
@@ -20,13 +20,13 @@ built with **REST Assured 5** + **TestNG 7** + **Jackson** + **AssertJ**.
 
 ## Prerequisites
 
-| Requirement | Version |
-|-------------|---------|
-| Java        | 21+     |
-| Maven       | 3.9+    |
-| Chat02 app  | running (with its PostgreSQL database) |
+| Requirement | Version                                              |
+|-------------|------------------------------------------------------|
+| Java        | 21+                                                  |
+| Maven       | 3.9+                                                 |
+| Chat app  | running (with its PostgreSQL database in the Docker) |
 
-The tests are **black-box**: they hit a live Chat02 instance over HTTP and
+The tests are **black-box**: they hit a live Chat instance over HTTP and
 rely on the four accounts seeded by `DataSeeder` at startup.
 
 ---
