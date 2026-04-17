@@ -1,5 +1,5 @@
  
-# Run locally (requires a running PostgreSQL on localhost:5432)
+# Several commands for building & testing the project
 
 ```bash
 mvn clean package -DskipTests

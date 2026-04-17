@@ -1,133 +1,67 @@
-# Chat02 – REST API Tests
 
-file:///home/left10/My/Git/Java/Chat02/chat-api-tests/target/surefire-reports/index.html#update_asAdmin_returns200WithUpdatedFields
+## Overview
 
-Black-box API tests for the Chat02 Spring Boot application,
-built with **REST Assured 5** + **TestNG 7** + **Jackson** + **AssertJ**.
+**chat-api-tests** is a **black-box test suite** designed to validate a Chat REST API built with Spring Boot. It interacts with a **running application over HTTP**, verifying behavior from an external perspective rather than inspecting internal code.
 
 ---
 
-## Stack
+## Requirements
+Docker compose up from the chat directory must be run before running the tests!
 
-| Library        | Version | Role                              |
-|----------------|---------|-----------------------------------|
-| TestNG         | 7.10.2  | Test runner & suite orchestration |
-| REST Assured   | 5.5.0   | HTTP client / assertion DSL       |
-| Jackson        | 2.18.2  | DTO serialisation / deserialisation |
-| AssertJ        | 3.27.3  | Fluent assertions on DTO fields   |
-| Lombok         | 1.18.36 | Boilerplate reduction on DTOs     |
+## Purpose
 
----
+The project ensures that the API:
 
-## Prerequisites
-
-| Requirement | Version |
-|-------------|---------|
-| Java        | 21+     |
-| Maven       | 3.9+    |
-| Chat02 app  | running (with its PostgreSQL database) |
-
-The tests are **black-box**: they hit a live Chat02 instance over HTTP and
-rely on the four accounts seeded by `DataSeeder` at startup.
+* Works correctly across all major endpoints
+* Enforces **authentication and role-based authorization**
+* Handles both **valid and invalid inputs** properly
+* Maintains consistent **HTTP status codes and response structures**
 
 ---
 
-## Running
+## Tech Stack
 
-```bash
-# Default – targets http://localhost:8080
-mvn test
-
-# Custom base URL
-mvn test -Dapi.base-url=http://staging.example.com:9090
-```
+* **TestNG** – test execution and suite management
+* **REST Assured** – HTTP requests and response validation
+* **Jackson** – JSON serialization/deserialization
+* **AssertJ** – fluent assertions
+* **Lombok** – DTO simplification
 
 ---
 
-## Project layout
+## Scope of Testing
 
-```
-src/test/java/pl/ldz/chat/
-├── dto/                          ← exact mirrors of source-project DTOs
-│   ├── UserRequestDto.java
-│   ├── UserResponseDto.java
-│   └── auth/
-│       ├── LoginRequestDto.java
-│       └── JwtResponseDto.java
-├── common/
-│   ├── BaseApiTest.java          ← REST Assured + Jackson config; withToken()
-│   ├── AuthHelper.java           ← login helpers returning JwtResponseDto
-│   └── UserRequestFactory.java   ← builds valid & invalid UserRequestDto objects
-└── api/
-    ├── auth/
-    │   └── AuthApiTest.java      ← POST /api/v1/auth/login (9 tests)
-    └── users/
-        └── UserApiTest.java      ← full CRUD + auth matrix (27 tests)
+The suite includes **tests** covering:
 
-src/test/resources/
-└── testng.xml                    ← suite file: Auth → Users (sequential)
-```
+* **Authentication** (login scenarios)
+* **Users** (full CRUD + permissions)
+* **Attachments** (CRUD + validation)
+* **Chat Rooms** (CRUD + roles)
+* **Personal Chats** (restricted access scenarios)
+* **Smoke tests** (basic system validation without local backend)
 
 ---
 
-## DTO mirrors
+## Key Characteristics
 
-The test DTOs in `pl.ldz.chat.dto` are direct equivalents of the source records/classes,
-re-implemented with Lombok and Jackson annotations for the test module:
-
-| Test DTO              | Source DTO                     | Notes                          |
-|-----------------------|--------------------------------|--------------------------------|
-| `LoginRequestDto`     | `dto.auth.LoginRequestDto`     | Lombok + `@JsonProperty`       |
-| `JwtResponseDto`      | `dto.auth.JwtResponseDto`      | `LocalDateTime` deserialiser   |
-| `UserRequestDto`      | `dto.UserRequestDto`           | record → Lombok class          |
-| `UserResponseDto`     | `dto.UserResponseDto`          | `UUID` + `Instant` fields      |
+* **Black-box approach** – tests only public API endpoints
+* **Role-based testing** – verifies behavior for (group) VIEWER, USER, ADMIN, AUDITOR, and anonymous users
+* **Full CRUD coverage** – create, read, update, delete operations across resources
+* **Error handling validation** – checks 401, 403, 404, 422 scenarios
+* **Sequential execution** – controlled order via TestNG suite
 
 ---
 
-## Seeded users (DataSeeder)
+## How It Works
 
-| Username | Password | Role    |
-|----------|----------|---------|
-| viewer   | vp       | VIEWER  |
-| user     | up       | USER    |
-| admin    | ap       | ADMIN   |
-| auditor  | ap       | AUDITOR |
+* Tests run against a **live Chat application instance**
+* Authentication is handled via **JWT tokens**
+* Predefined users (seeded at startup) are used for role-based scenarios
+* In general configurable base URL allows testing across environments (local, staging, etc.)
 
 ---
 
-## Test coverage
+## Bottom Line
 
-### Auth (`AuthApiTest`) – 9 tests
-| Scenario                        | Expected |
-|---------------------------------|----------|
-| Valid login (admin/user/viewer/auditor) | 200 + token + expiresAt |
-| Wrong password                  | 401      |
-| Unknown username                | 401      |
-| Blank username                  | 400      |
-| Blank password                  | 400      |
-| Empty JSON body                 | 400      |
-
-### Users (`UserApiTest`) – 27 tests
-
-| Endpoint           | Scenario                          | Expected |
-|--------------------|-----------------------------------|----------|
-| GET /users         | ADMIN / USER / VIEWER / AUDITOR   | 200      |
-| GET /users         | No token / malformed token        | 401      |
-| GET /users         | Pagination params respected       | 200 + correct metadata |
-| GET /users/{id}    | ADMIN / VIEWER / AUDITOR          | 200 + UserResponseDto fields |
-| GET /users/{id}    | Non-existent UUID                 | 404      |
-| GET /users/{id}    | No token                          | 401      |
-| POST /users        | ADMIN creates user                | 201 + full UserResponseDto |
-| POST /users        | VIEWER / USER / AUDITOR           | 403      |
-| POST /users        | No token                          | 401      |
-| POST /users        | Blank username / invalid email / blank password / username > 50 | 422 |
-| PUT /users/{id}    | ADMIN / USER role                 | 200 + updated fields |
-| PUT /users/{id}    | VIEWER / AUDITOR                  | 403      |
-| PUT /users/{id}    | No token                          | 401      |
-| PUT /users/{id}    | Non-existent UUID                 | 404      |
-| PUT /users/{id}    | Invalid payload                   | 422      |
-| DELETE /users/{id} | ADMIN                             | 204      |
-| DELETE /users/{id} | User gone after deletion          | 404      |
-| DELETE /users/{id} | USER / VIEWER / AUDITOR           | 403      |
-| DELETE /users/{id} | No token                          | 401      |
-| DELETE /users/{id} | Non-existent UUID                 | 404      |
+This project is a **comprehensive API verification suite** that simulates real client interactions, ensuring the Chat backend 
+is **secure, reliable, and behaves correctly across all roles and cases**.

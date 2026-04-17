@@ -1,4 +1,8 @@
-# Chat02
+# Chat application with demonstration of using Junie AI assistant 
+
+## For running java build & test commands please use file RUN_ME.md 
+
+## For more detailed information please see file info/PRJ_DDESCRIPTION.md
 
 # Run with Docker Compose (recommended)
 
@@ -7,7 +11,6 @@ Build and start the app + PostgreSQL together:
 docker compose up --build
 ```
 
-The app will be available at http://localhost:8080
 Swagger UI: http://localhost:8080/swagger-ui/index.html
 
 Stop and remove containers:
@@ -20,10 +23,15 @@ Stop and also remove the database volume (clean slate):
 docker compose down -v
 ```
 
----
+## Default Seed Users
 
-To run everything:
+On startup, the application automatically seeds the following users (created only if they do not already exist):
 
-docker compose up --build
-The app will be at http://localhost:8080 and Swagger UI at http://localhost:8080/swagger-ui/index.html. 
-The first build will take a few minutes while Maven downloads dependencies — subsequent builds will be much faster thanks to Docker layer caching.
+| Username | Password | Role    |
+|----------|----------|---------|
+| `viewer` | `vp`     | VIEWER  |
+| `user`   | `up`     | USER    |
+| `admin`  | `ap`     | ADMIN   |
+| `auditor`| `ap`     | AUDITOR |
+
+
