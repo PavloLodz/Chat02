@@ -182,4 +182,4 @@ Key properties:
 | `spring.datasource.password` | `chat` |
 | `spring.jpa.hibernate.ddl-auto` | `create-drop` |
 
-> **Note:** `create-drop` recreates the schema on every restart. Change to `validate` or `update` for persistent data in non-Docker environments.
+> **Note:** `create-drop` recreates the schema on every restart. It is possible to change to `validate` or `update` for persistent data in non-Docker environments.

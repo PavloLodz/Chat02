@@ -1,8 +1,8 @@
 # Chat application with demonstration of using Junie AI assistant 
 
-## For running java build & test commands please use file RUN_ME.md 
+For running java build & test commands please use file RUN_ME.md 
 
-## For more detailed information please see file info/PRJ_DDESCRIPTION.md
+For more detailed information please see file info/PRJ_DDESCRIPTION.md
 
 # Run with Docker Compose (recommended)
 
